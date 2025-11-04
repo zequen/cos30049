@@ -7,6 +7,11 @@ __pycache__/
 venv/
 ENV/
 
+# Node
+node_modules/
+/build
+npm-debug.log*
+
 # IDE
 .idea/
 *.iml
