@@ -16,7 +16,6 @@ app.add_middleware(
 
 class InputData(BaseModel):
     text: str
-    model: str = "random_forest" #change later to actually react to selected model
 
 @app.get("/")
 def root():
@@ -24,5 +23,4 @@ def root():
 
 @app.post("/predict")
 def predict(data: InputData):
-    result = predict_text(data.text, model_name=data.model)
-    return {"prediction": result}
+    return {"prediction": predict_text(data.text)}
