@@ -33,7 +33,7 @@ for df in [constraint_train, constraint_val, constraint_test]:
         df["id"] = range(len(df))
 
 # ---------- 2. Merge Kaggle + Constraint Train for Training + Cleaning ----------
-train_df = pd.concat([constraint_train, kaggle_df], ignore_index=True)
+train_df = constraint_train.copy()
 val_df   = constraint_val.copy()
 test_df  = constraint_test.copy()
 
