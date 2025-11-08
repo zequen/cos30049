@@ -12,7 +12,7 @@ models = {
     "naive_bayes": joblib.load("model/model_nb.pkl"),
 }
 
-current_model = models["naive_bayes"]
+current_model = models["random_forest"]
 
 misinfo_keywords = [
     "shocking", "breaking", "exclusive", "truth", "hoax",
@@ -34,7 +34,7 @@ def extract_features(text):
     misinfo_keyword_count = sum(1 for w in misinfo_keywords if w in text)
     return np.array([[exclamation_count, question_count, misinfo_keyword_count]])
 
-def predict_text(input_text: str, model_name: str = "naive_bayes"):
+def predict_text(input_text: str, model_name: str = "random_forest"):
     print("Received text:", input_text)
     print("Using model:", model_name)
 
@@ -43,7 +43,7 @@ def predict_text(input_text: str, model_name: str = "naive_bayes"):
     extra = extract_features(input_text)
     X = sp.hstack((X_tfidf, extra))
 
-    model = models.get(model_name, models["naive_bayes"])
+    model = models.get(model_name, models["random_forest"])
     print("Model loaded successfully")
 
     pred = model.predict(X)[0]

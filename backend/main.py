@@ -24,5 +24,15 @@ def root():
 
 @app.post("/predict")
 def predict(data: InputData):
-    result = predict_text(data.text, model_name=data.model)
-    return {"prediction": result}
+    try:
+        if not data.text.strip():
+            raise HTTPException(status_code=400, detail="Input text cannot be empty.")
+        
+        result = predict_text(data.text, model_name=data.model)
+        return {"prediction": result}
+    except FileNotFoundError as e:
+        raise HTTPException(status_code=500, detail=f"Model or vectorizer file missing: {e}")
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=f"Invalid input: {e}")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Unexpected error: {str(e)}")
