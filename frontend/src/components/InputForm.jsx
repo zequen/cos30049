@@ -23,17 +23,17 @@ export default function InputForm({ setResult, setHistory, setKeywordData, setMo
     const validateInput = () => {
         // check if text is empty or only whitespace
         if (!text.trim()) {
-            setValidationError('please enter some text to analyse');
+            setValidationError('Please enter some text to analyse');
             return false;
         }
         // check minimum length
         if (text.trim().length < 10) {
-            setValidationError('text must be at least 10 characters long');
+            setValidationError('Text must be at least 10 characters long');
             return false;
         }
         // check maximum length
         if (text.length > 5000) {
-            setValidationError('text must be less than 5000 characters');
+            setValidationError('Text must be less than 5000 characters');
             return false;
         }
         // clear validation error if all checks pass
@@ -75,7 +75,7 @@ export default function InputForm({ setResult, setHistory, setKeywordData, setMo
                 }
             }));
         } catch (err) {
-            setError("failed to connect to the server. please ensure the backend is running");
+            setError("Failed to connect to the server. Please ensure the backend is running");
             console.error(err);
         } finally {
             setLoading(false);
@@ -99,7 +99,7 @@ export default function InputForm({ setResult, setHistory, setKeywordData, setMo
                 <div className="form-row">
                     <div className="form-group">
                         <label htmlFor="model-select" className="input-label">
-                            select model
+                            Select Model
                         </label>
                         <select
                             id="model-select"
@@ -115,7 +115,7 @@ export default function InputForm({ setResult, setHistory, setKeywordData, setMo
                 </div>
 
                 <label htmlFor="text-input" className="input-label">
-                    enter text to analyse
+                    Enter Text to Analyse
                 </label>
 
                 <textarea
@@ -123,14 +123,14 @@ export default function InputForm({ setResult, setHistory, setKeywordData, setMo
                     id="text-input"
                     value={text}
                     onChange={(e) => setText(e.target.value)}
-                    placeholder="paste a social media post, tweet, or article here..."
+                    placeholder="Paste a social media post, tweet, or article here..."
                     className={`input-textarea ${validationError ? 'error' : ''}`}
                     rows={4}
                 />
 
                 {/* character counter */}
                 <div className="character-counter">
-                    {text.length} / 5000 characters
+                    {text.length} / 5,000 Characters
                 </div>
 
                 {/* validation error message */}
@@ -157,10 +157,10 @@ export default function InputForm({ setResult, setHistory, setKeywordData, setMo
                         {loading ? (
                             <>
                                 <span className="spinner"></span>
-                                analysing...
+                                Analysing...
                             </>
                         ) : (
-                            'analyse text'
+                            'Analyse Text'
                         )}
                     </button>
 
@@ -169,13 +169,13 @@ export default function InputForm({ setResult, setHistory, setKeywordData, setMo
                         onClick={handleClear}
                         className="button-clear"
                     >
-                        clear
+                        Clear
                     </button>
                 </div>
 
                 {/* helper text */}
                 <p className="helper-text">
-                    enter at least 10 characters to analyse
+                    Enter at least 10 characters to analyse
                 </p>
             </form>
         </div>

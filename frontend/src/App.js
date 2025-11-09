@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import InputForm from "./components/InputForm";
 import Charts from "./components/Charts";
@@ -53,6 +54,21 @@ function MainApp() {
                     modelStats={modelStats}
                 />
             )}
+
+            {/* footer */}
+            <footer className="app-footer">
+                <div className="footer-content">
+                    <p className="footer-text">
+                        © {new Date().getFullYear()} Misinformation Detector
+                    </p>
+                    <p className="footer-assignment">
+                        Assignment 3 - COS30049
+                    </p>
+                    <p className="footer-authors">
+                        Cody Le • John Hoang • Johnathon Taylor
+                    </p>
+                </div>
+            </footer>
         </div>
     );
 }

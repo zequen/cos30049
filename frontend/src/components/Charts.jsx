@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Pie, Bar } from "react-chartjs-2";
 import {
@@ -52,7 +51,7 @@ export default function Charts({ history, keywordData, modelStats }) {
         labels: keywordLabels,
         datasets: [
             {
-                label: "keyword frequency",
+                label: "Keyword Frequency",
                 data: keywordCounts,
                 backgroundColor: "#8b5cf6",
                 borderColor: "#7c3aed",
@@ -142,13 +141,13 @@ export default function Charts({ history, keywordData, modelStats }) {
             <div className="charts-grid">
                 {/* pie chart showing distribution of predictions */}
                 <div className="chart-card">
-                    <h3 className="chart-title">prediction distribution</h3>
+                    <h3 className="chart-title">Prediction Distribution</h3>
                     <div className="chart-wrapper">
                         <Pie data={pieData} options={pieOptions} />
                     </div>
                     <div className="chart-stats">
                         <div className="stat-item">
-                            <span className="stat-label">total:</span>
+                            <span className="stat-label">Total:</span>
                             <span className="stat-value">{realCount + fakeCount}</span>
                         </div>
                     </div>
@@ -157,7 +156,7 @@ export default function Charts({ history, keywordData, modelStats }) {
                 {/* model statistics bar chart */}
                 {modelTotals.some(total => total > 0) && (
                     <div className="chart-card chart-card-wide">
-                        <h3 className="chart-title">model performance statistics</h3>
+                        <h3 className="chart-title">Model Performance Statistics</h3>
                         <div className="chart-wrapper">
                             <Bar data={modelStatsData} options={barOptions} />
                         </div>
@@ -167,7 +166,7 @@ export default function Charts({ history, keywordData, modelStats }) {
                 {/* bar chart showing keyword frequencies */}
                 {keywordLabels.length > 0 && (
                     <div className="chart-card chart-card-wide">
-                        <h3 className="chart-title">misinformation keywords detected</h3>
+                        <h3 className="chart-title">Misinformation Keywords Detected</h3>
                         <div className="chart-wrapper">
                             <Bar data={keywordBarData} options={barOptions} />
                         </div>

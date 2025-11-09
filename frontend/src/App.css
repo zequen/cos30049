@@ -1,3 +1,4 @@
+
 /* dark mode theme variables */
 :root {
   --bg-primary: #0f172a;
@@ -35,6 +36,8 @@ body {
   padding: 2rem;
   max-width: 1400px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
 }
 
 /* header styles */
@@ -52,7 +55,6 @@ body {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   margin-bottom: 0.5rem;
-  text-transform: lowercase;
 }
 
 .app-subtitle {
@@ -67,7 +69,8 @@ body {
   border-radius: 16px;
   padding: 2rem;
   box-shadow: var(--shadow);
-  max-width: 900px;
+  max-width: 1200px;
+  width: 100%;
   margin: 0 auto 2rem;
   border: 1px solid var(--border-color);
 }
@@ -90,7 +93,6 @@ body {
   font-weight: 600;
   color: var(--text-secondary);
   margin-bottom: 0.5rem;
-  text-transform: lowercase;
 }
 
 .label-icon {
@@ -198,7 +200,6 @@ body {
   cursor: pointer;
   transition: all 0.2s ease;
   font-family: inherit;
-  text-transform: lowercase;
 }
 
 .button-submit {
@@ -258,7 +259,8 @@ body {
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  max-width: 900px;
+  max-width: 1200px;
+  width: 100%;
   margin: 2rem auto;
   padding: 1.5rem 2rem;
   border-radius: 16px;
@@ -317,7 +319,6 @@ body {
   font-size: 0.9rem;
   color: var(--text-secondary);
   margin-bottom: 0.25rem;
-  text-transform: lowercase;
 }
 
 .result-value {
@@ -336,6 +337,7 @@ body {
 /* charts container */
 .charts-container {
   margin-top: 3rem;
+  margin-bottom: 3rem;
 }
 
 .charts-grid {
@@ -361,7 +363,6 @@ body {
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 1.5rem;
-  text-transform: lowercase;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -398,22 +399,52 @@ body {
   font-weight: 700;
 }
 
-/* responsive design */
-@media (max-width: 768px) {
+/* footer styles */
+.app-footer {
+  margin-top: auto;
+  padding-top: 3rem;
+  padding-bottom: 2rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.footer-content {
+  text-align: center;
+}
+
+.footer-text {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.footer-assignment {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.footer-authors {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* responsive design for tablets */
+@media (max-width: 1024px) {
   .app-container {
-    padding: 1rem;
-  }
-
-  .app-title {
-    font-size: 2rem;
-  }
-
-  .input-form-container {
     padding: 1.5rem;
   }
 
-  .button-group {
-    grid-template-columns: 1fr;
+  .app-title {
+    font-size: 2.5rem;
+  }
+
+  .input-form-container {
+    max-width: 900px;
+  }
+
+  .result-card {
+    max-width: 900px;
   }
 
   .charts-grid {
@@ -422,5 +453,219 @@ body {
 
   .chart-card-wide {
     grid-column: 1;
+  }
+}
+
+/* responsive design for mobile devices */
+@media (max-width: 768px) {
+  .app-container {
+    padding: 1rem;
+  }
+
+  .app-header {
+    margin-bottom: 2rem;
+    padding: 1rem 0;
+  }
+
+  .app-title {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .app-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .input-form-container {
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+
+  .input-label {
+    font-size: 0.85rem;
+  }
+
+  .input-select,
+  .input-textarea {
+    font-size: 0.95rem;
+    padding: 0.75rem;
+  }
+
+  .character-counter {
+    font-size: 0.75rem;
+  }
+
+  .button-group {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .button-submit,
+  .button-clear {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+  }
+
+  .helper-text {
+    font-size: 0.8rem;
+  }
+
+  .result-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.25rem 1.5rem;
+    gap: 1rem;
+  }
+
+  .result-icon {
+    font-size: 2.5rem;
+    width: 50px;
+    height: 50px;
+  }
+
+  .result-value {
+    font-size: 1.5rem;
+  }
+
+  .charts-container {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .charts-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .chart-card {
+    padding: 1.25rem;
+  }
+
+  .chart-title {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .chart-wrapper {
+    padding: 0.5rem;
+  }
+
+  .chart-stats {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .app-footer {
+    padding-top: 2rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .footer-text,
+  .footer-assignment,
+  .footer-authors {
+    font-size: 0.8rem;
+  }
+}
+
+/* responsive design for small mobile devices */
+@media (max-width: 480px) {
+  .app-container {
+    padding: 0.75rem;
+  }
+
+  .app-title {
+    font-size: 1.75rem;
+  }
+
+  .app-subtitle {
+    font-size: 0.85rem;
+  }
+
+  .input-form-container {
+    padding: 1.25rem;
+  }
+
+  .input-textarea {
+    min-height: 100px;
+  }
+
+  .button-submit,
+  .button-clear {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.9rem;
+  }
+
+  .result-card {
+    padding: 1rem;
+  }
+
+  .result-icon {
+    font-size: 2rem;
+    width: 45px;
+    height: 45px;
+  }
+
+  .result-label {
+    font-size: 0.8rem;
+  }
+
+  .result-value {
+    font-size: 1.25rem;
+  }
+
+  .chart-card {
+    padding: 1rem;
+  }
+
+  .chart-title {
+    font-size: 1rem;
+  }
+
+  .stat-value {
+    font-size: 1.1rem;
+  }
+
+  .footer-authors {
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+}
+
+/* landscape mobile orientation */
+@media (max-width: 768px) and (orientation: landscape) {
+  .app-header {
+    margin-bottom: 1.5rem;
+    padding: 0.75rem 0;
+  }
+
+  .app-title {
+    font-size: 1.75rem;
+  }
+
+  .input-form-container {
+    padding: 1.25rem;
+  }
+
+  .charts-container {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* fix for very small screens */
+@media (max-width: 320px) {
+  .app-title {
+    font-size: 1.5rem;
+  }
+
+  .charts-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .button-submit,
+  .button-clear {
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
   }
 }
