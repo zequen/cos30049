@@ -4,11 +4,11 @@ A full-stack web application that uses machine learning to detect misinformation
 
 ## Features
 
-- 🤖 **Machine Learning Models**: Random Forest, Logistic Regression, and Naive Bayes classifiers
-- 📊 **Real-time Visualization**: Pie chart showing prediction history and bar chart displaying detected misinformation keywords
-- 🎯 **Keyword Detection**: Identifies 70+ misinformation indicators including sensational language, conspiracy terms, and clickbait phrases
-- ⚡ **Fast API Backend**: RESTful API built with FastAPI
-- 💻 **React Frontend**: Modern, responsive user interface
+- **Machine Learning Models**: Random Forest, Logistic Regression, and Naive Bayes classifiers
+- **Real-time Visualization**: Pie chart showing prediction history and bar chart displaying detected misinformation keywords
+- **Keyword Detection**: Identifies 70+ misinformation indicators including sensational language, conspiracy terms, and clickbait phrases
+- **Fast API Backend**: RESTful API built with FastAPI
+- **React Frontend**: Modern, responsive user interface
 
 ## Tech Stack
 
@@ -26,8 +26,7 @@ A full-stack web application that uses machine learning to detect misinformation
 - CSS3
 
 ## Project Structure
-
-```plaintext
+```
 ProjectMisinfo/
 ├── backend/
 │   ├── model/
@@ -53,100 +52,133 @@ ProjectMisinfo/
 ## Installation
 
 ### Prerequisites
+- **Python 3.12** or higher
+- **Node.js 18** or higher
+- **npm** or **yarn**
 
-- Python 3.12 or higher
-- Node.js 18 or higher
-- npm or yarn
+---
 
 ### Backend Setup
 
-1. Navigate to the backend directory:
+#### 1. Navigate to the backend directory
 ```bash
 cd backend
 ```
 
-2. Create and activate a virtual environment:
+#### 2. Create and activate a virtual environment
 ```bash
 python3 -m venv venv
-source venv/bin/activate  # On macOS/Linux
+source venv/bin/activate   # On macOS/Linux
 # or
-venv\Scripts\activate     # On Windows
+venv\Scripts\activate      # On Windows
 ```
 
-3. Install Python dependencies:
+#### 3. Install Python dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-4. Ensure model files exist in `backend/model/`:
-    - `vectorizer.pkl`
-    - `model_rf.pkl`
-    - `model_logreg.pkl`
-    - `model_nb.pkl`
+#### 4. Ensure model files exist in `backend/model/`:
+- `vectorizer.pkl`
+- `model_rf.pkl`
+- `model_logreg.pkl`
+- `model_nb.pkl`
+
+---
+
+### 🧩 Alternative macOS Installation (using Homebrew)
+If you prefer to use **Homebrew** for dependency setup on macOS:
+
+```bash
+# Install Python and Node.js
+brew install python node
+
+# Verify installations
+python3 --version
+node -v
+npm -v
+
+# Create and activate virtual environment
+python3 -m venv venv
+source venv/bin/activate
+
+# Install dependencies and run the app
+pip install -r requirements.txt
+uvicorn main:app --reload
+```
+
+---
 
 ### Frontend Setup
 
-1. Navigate to the frontend directory:
+#### 1. Navigate to the frontend directory
 ```bash
 cd frontend
 ```
 
-2. Install Node dependencies:
+#### 2. Install dependencies
 ```bash
 npm install
 ```
 
+#### 3. Start the frontend development server
+```bash
+npm start
+```
+
+---
+
 ## Running the Application
 
 ### Start the Backend Server
-
-1. From the `backend` directory with virtual environment activated:
 ```bash
 uvicorn main:app --reload
 ```
-The API will be available at `http://127.0.0.1:8000`
+API available at: [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
-You can test the API by visiting:
-- `http://127.0.0.1:8000/` - Health check
-- `http://127.0.0.1:8000/docs` - Interactive API documentation
+Test endpoints:
+- `/` → Health check
+- `/docs` → Interactive API documentation
 
 ### Start the Frontend
-
-1. In a new terminal, navigate to the `frontend` directory:
 ```bash
-cd frontend
 npm start
 ```
-The application will open at `http://localhost:3000`
+App will open at [http://localhost:3000](http://localhost:3000)
+
+---
 
 ## Usage
 
-1. **Enter text** to analyze in the textarea (minimum 10 characters)
-2. Click **"Analyse Text"** to submit
-3. View the prediction result (Real or Fake)
-4. Check the **Prediction History** pie chart to see distribution of results
-5. If misinformation keywords are detected, view them in the **Keywords Detected** bar chart
+1. Enter text (minimum 10 characters)
+2. Click **"Analyse Text"**
+3. View prediction (Real or Fake)
+4. Review **Prediction History** (pie chart)
+5. Check **Keywords Detected** (bar chart)
+
+---
 
 ### Example Text to Test
 
-**Likely to be classified as Fake:**
-```text
+**Fake Example:**
+```
 SHOCKING BREAKING NEWS! You won't believe what they don't want you to know! 
 This URGENT truth has been EXPOSED by insiders! Share NOW before it's censored!
 ```
 
-**Likely to be classified as Real:**
-```text
+**Real Example:**
+```
 The Federal Reserve announced today that interest rates will remain unchanged. 
 Economic indicators show steady growth in the manufacturing sector according to 
 government data released this morning.
 ```
 
+---
+
 ## API Endpoints
 
 ### `GET /`
-Health check endpoint
-
+Health check endpoint  
 **Response:**
 ```json
 {
@@ -155,15 +187,13 @@ Health check endpoint
 ```
 
 ### `POST /predict`
-Analyze text for misinformation
-
+Analyze text for misinformation  
 **Request Body:**
 ```json
 {
   "text": "Your text to analyze here"
 }
 ```
-
 **Response:**
 ```json
 {
@@ -175,26 +205,30 @@ Analyze text for misinformation
 }
 ```
 
+---
+
 ## Model Training
 
 To retrain the models with new data:
 
-1. Place your training datasets in `backend/model/data/`:
-    - `Fake.csv` and `True.csv` (Kaggle dataset)
-    - `Constraint_English_Train.xlsx`
-    - `Constraint_English_Val.xlsx`
-    - `Constraint_English_Test.xlsx`
-
-2. Run the training script:
+1. Place datasets in `backend/model/data/`:
+   - `Fake.csv`, `True.csv`
+   - `Constraint_English_Train.xlsx`
+   - `Constraint_English_Val.xlsx`
+   - `Constraint_English_Test.xlsx`
+2. Run:
 ```bash
 cd backend/model
 python trainModel.py
 ```
-This will generate new `.pkl` files for the models and vectorizer.
+
+Generates new `.pkl` model files.
+
+---
 
 ## Misinformation Keywords
 
-The system detects 70+ keywords organized into categories:
+Categories include:
 - **Sensational words**: shocking, breaking, exclusive, urgent
 - **Conspiracy terms**: coverup, hidden, agenda, manipulation
 - **Truth claims**: wake up, real truth, they don't want you to know
@@ -202,52 +236,42 @@ The system detects 70+ keywords organized into categories:
 - **Clickbait phrases**: you won't believe, what happened next
 - **Emotional manipulation**: outrage, scandal, crisis
 
-Keywords are matched using word boundaries to avoid false positives (e.g., "lie" in "believe").
+---
 
 ## Configuration
 
 ### Backend
-- **CORS Origins**: Modify `allow_origins` in `backend/main.py` to add allowed frontend URLs
-- **Model Selection**: Change default model in `backend/model/predictor.py`
-- **Keywords**: Edit `backend/model/keywords.py` to add/remove keywords
+- Edit CORS origins in `backend/main.py`
+- Change model defaults in `backend/model/predictor.py`
+- Modify keywords in `backend/model/keywords.py`
 
 ### Frontend
-- **API URL**: Update in `frontend/src/components/InputForm.jsx` if backend URL changes
-- **Text Validation**: Modify min/max length in `InputForm.jsx`
+- Update API URL in `frontend/src/components/InputForm.jsx`
+- Adjust input validation rules in `InputForm.jsx`
+
+---
 
 ## Troubleshooting
 
-### Backend won't start
-- Ensure virtual environment is activated
-- Check Python version: `python --version`
-- Verify all `.pkl` files exist in `backend/model/`
-- Check if port 8000 is available
+### Backend won’t start
+- Ensure venv is activated
+- Check Python version (`python --version`)
+- Verify `.pkl` files exist
+- Make sure port `8000` is available
 
-### Frontend shows connection error
-- Verify backend is running at `http://127.0.0.1:8000`
+### Frontend connection error
+- Confirm backend is running
 - Check browser console for CORS errors
-- Ensure axios is installed: `npm list axios`
+- Verify axios is installed (`npm list axios`)
 
 ### Charts not displaying
-- Check if Chart.js is installed: `npm list chart.js react-chartjs-2`
-- Verify browser console for errors
-- Ensure prediction history contains data
-
-## License
-
-ISC
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Open a Pull Request
+- Ensure Chart.js + react-chartjs-2 are installed
+- Check console for JS errors
+- Ensure prediction history has data
+---
 
 ## Authors
 - Cody Le
 - John Hoang
 - Johnathon Taylor
-
 Assignment 3 - COS30049
