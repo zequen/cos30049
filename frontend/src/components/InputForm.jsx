@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import React, { useState, useRef, useEffect } from "react";
 import "../App.css";
@@ -98,7 +99,6 @@ export default function InputForm({ setResult, setHistory, setKeywordData, setMo
                 <div className="form-row">
                     <div className="form-group">
                         <label htmlFor="model-select" className="input-label">
-                            <span className="label-icon">🤖</span>
                             select model
                         </label>
                         <select
@@ -115,7 +115,6 @@ export default function InputForm({ setResult, setHistory, setKeywordData, setMo
                 </div>
 
                 <label htmlFor="text-input" className="input-label">
-                    <span className="label-icon">📝</span>
                     enter text to analyse
                 </label>
 
@@ -137,7 +136,6 @@ export default function InputForm({ setResult, setHistory, setKeywordData, setMo
                 {/* validation error message */}
                 {validationError && (
                     <div className="error-message">
-                        <span className="error-icon">⚠️</span>
                         {validationError}
                     </div>
                 )}
@@ -145,7 +143,6 @@ export default function InputForm({ setResult, setHistory, setKeywordData, setMo
                 {/* network error message */}
                 {error && (
                     <div className="network-error">
-                        <span className="error-icon">❌</span>
                         {error}
                     </div>
                 )}
@@ -163,10 +160,7 @@ export default function InputForm({ setResult, setHistory, setKeywordData, setMo
                                 analysing...
                             </>
                         ) : (
-                            <>
-                                <span className="button-icon">🔍</span>
-                                analyse text
-                            </>
+                            'analyse text'
                         )}
                     </button>
 
@@ -175,14 +169,13 @@ export default function InputForm({ setResult, setHistory, setKeywordData, setMo
                         onClick={handleClear}
                         className="button-clear"
                     >
-                        <span className="button-icon">🗑️</span>
                         clear
                     </button>
                 </div>
 
                 {/* helper text */}
                 <p className="helper-text">
-                    💡 enter at least 10 characters to analyse
+                    enter at least 10 characters to analyse
                 </p>
             </form>
         </div>
