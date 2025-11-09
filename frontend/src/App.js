@@ -1,121 +1,47 @@
-import axios from "axios";
 import React, { useState } from "react";
-import "./App.css";
+import InputForm from "./components/InputForm";
+import Charts from "./components/Charts";
 
-export default function InputForm({ setResult, setHistory }) {
-    const [text, setText] = useState('');
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('');
-    const [validationError, setValidationError] = useState('');
-
-    // input validation function
-    const validateInput = () => {
-        // check if text is empty or only whitespace
-        if (!text.trim()) {
-            setValidationError('please enter some text to analyse');
-            return false;
-        }
-        // check minimum length
-        if (text.trim().length < 10) {
-            setValidationError('text must be at least 10 characters long');
-            return false;
-        }
-        // check maximum length
-        if (text.length > 5000) {
-            setValidationError('text must be less than 5000 characters');
-            return false;
-        }
-        // clear validation error if all checks pass
-        setValidationError('');
-        return true;
-    };
-
-    // handle form submission
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        // validate input before submitting
-        if (!validateInput()) {
-            return;
-        }
-
-        setLoading(true);
-        setError('');
-        setResult(null);
-
-        try {
-            const res = await axios.post("http://127.0.0.1:8000/predict", { text });
-            setResult(res.data.prediction);
-            setHistory((prev) => [...prev, res.data.prediction]);
-        } catch (err) {
-            setError("failed to connect to the server. please ensure the backend is running");
-            console.error(err);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    // handle clear/reset
-    const handleClear = () => {
-        setText('');
-        setError('');
-        setValidationError('');
-        setResult(null);
-    };
+function MainApp() {
+    // state to store the current prediction result
+    const [result, setResult] = useState(null);
+    // state to store history of all predictions for charts
+    const [history, setHistory] = useState([]);
+    // state to store keyword data from latest prediction
+    const [keywordData, setKeywordData] = useState({});
 
     return (
-        <div className="input-form-container">
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="text-input" className="input-label">
-                    enter text to analyse
-                </label>
+        <div style={{ padding: "2rem", fontFamily: "sans-serif", backgroundColor: "#f9fafb", minHeight: "100vh" }}>
+            <h1 style={{ textAlign: "center", marginBottom: "2rem", color: "#111827" }}>
+                misinformation detector
+            </h1>
 
-                <textarea
-                    id="text-input"
-                    value={text}
-                    onChange={(e) => setText(e.target.value)}
-                    placeholder="paste a social media post, tweet, or article here..."
-                    className={`input-textarea ${validationError ? 'error' : ''}`}
-                />
+            {/* form component for text input and submission */}
+            <InputForm setResult={setResult} setHistory={setHistory} setKeywordData={setKeywordData} />
 
-                {/* validation error message */}
-                {validationError && (
-                    <div className="error-message">
-                        {validationError}
-                    </div>
-                )}
-
-                {/* network error message */}
-                {error && (
-                    <div className="network-error">
-                        {error}
-                    </div>
-                )}
-
-                {/* buttons */}
-                <div className="button-group">
-                    <button
-                        type="submit"
-                        className="button-submit"
-                        disabled={loading}
-                    >
-                        {loading ? 'analysing...' : 'analyse text'}
-                    </button>
-
-                    <button
-                        type="button"
-                        onClick={handleClear}
-                        className="button-clear"
-                    >
-                        clear
-                    </button>
+            {/* display prediction result if available */}
+            {result && (
+                <div style={{
+                    textAlign: "center",
+                    marginTop: "1.5rem",
+                    padding: "1rem",
+                    backgroundColor: result === "Real" ? "#d1fae5" : "#fee2e2",
+                    borderRadius: "8px",
+                    maxWidth: "800px",
+                    margin: "1.5rem auto",
+                }}>
+                    <p style={{ fontSize: "1.25rem", fontWeight: "600" }}>
+                        prediction: <strong>{result}</strong>
+                    </p>
                 </div>
+            )}
 
-                {/* helper text */}
-                <p className="helper-text">
-                    enter at least 10 characters to analyse
-                </p>
-            </form>
+            {/* render charts showing prediction history and keyword data */}
+            {history.length > 0 && (
+                <Charts history={history} keywordData={keywordData} />
+            )}
         </div>
     );
 }
+
+export default MainApp;
