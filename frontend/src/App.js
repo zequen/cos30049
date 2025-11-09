@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import InputForm from "./components/InputForm";
 import Charts from "./components/Charts";
 import "./App.css";
@@ -6,16 +6,18 @@ import "./App.css";
 function MainApp() {
     // state to store the current prediction result
     const [result, setResult] = useState(null);
-    // state to store history of all predictions for charts
     const [history, setHistory] = useState([]);
-    // state to store keyword data from latest prediction
     const [keywordData, setKeywordData] = useState({});
-    // state to track model statistics
     const [modelStats, setModelStats] = useState({
         random_forest: { total: 0, real: 0, fake: 0 },
         logistic_regression: { total: 0, real: 0, fake: 0 },
         naive_bayes: { total: 0, real: 0, fake: 0 }
     });
+
+    // set the tab title
+    useEffect(() => {
+        document.title = "Misinformation Detector";
+    }, []); // empty dependency array ensures it runs once on mount
 
     return (
         <div className="app-container">
@@ -24,7 +26,6 @@ function MainApp() {
                 <p className="app-subtitle">insert a really cool subtitle here</p>
             </div>
 
-            {/* form component for text input and submission */}
             <InputForm
                 setResult={setResult}
                 setHistory={setHistory}
@@ -32,7 +33,6 @@ function MainApp() {
                 setModelStats={setModelStats}
             />
 
-            {/* display prediction result if available */}
             {result && (
                 <div className={`result-card ${result === "Real" ? "result-real" : "result-fake"}`}>
                     <div className="result-icon">
@@ -45,7 +45,6 @@ function MainApp() {
                 </div>
             )}
 
-            {/* render charts showing prediction history and keyword data */}
             {history.length > 0 && (
                 <Charts
                     history={history}
@@ -54,7 +53,6 @@ function MainApp() {
                 />
             )}
 
-            {/* footer */}
             <footer className="app-footer">
                 <div className="footer-content">
                     <p className="footer-text">
