@@ -338,11 +338,16 @@ body {
 .charts-container {
   margin-top: 3rem;
   margin-bottom: 3rem;
+  max-width: 1200px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .charts-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 2rem;
 }
 
@@ -352,10 +357,13 @@ body {
   padding: 1.5rem;
   box-shadow: var(--shadow);
   border: 1px solid var(--border-color);
+  width: fit-content;
+  max-width: 100%;
 }
 
 .chart-card-wide {
-  grid-column: 1 / -1;
+  width: 100%;
+  max-width: 800px;
 }
 
 .chart-title {
@@ -366,11 +374,16 @@ body {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  text-align: center;
+  justify-content: center;
 }
 
 .chart-wrapper {
   position: relative;
-  padding: 1rem;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .chart-stats {
@@ -427,6 +440,26 @@ body {
 .footer-authors {
   color: var(--text-muted);
   font-size: 0.85rem;
+  margin-bottom: 0.75rem;
+}
+
+.footer-github {
+  display: inline-block;
+  color: var(--accent-primary);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--accent-primary);
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.footer-github:hover {
+  background-color: var(--accent-primary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px -2px var(--accent-primary);
 }
 
 /* responsive design for tablets */
@@ -447,12 +480,12 @@ body {
     max-width: 900px;
   }
 
-  .charts-grid {
-    grid-template-columns: 1fr;
+  .charts-container {
+    max-width: 900px;
   }
 
   .chart-card-wide {
-    grid-column: 1;
+    max-width: 700px;
   }
 }
 
@@ -533,12 +566,16 @@ body {
   }
 
   .charts-grid {
-    grid-template-columns: 1fr;
     gap: 1.5rem;
   }
 
   .chart-card {
     padding: 1.25rem;
+    width: 100%;
+  }
+
+  .chart-card-wide {
+    width: 100%;
   }
 
   .chart-title {
@@ -547,7 +584,7 @@ body {
   }
 
   .chart-wrapper {
-    padding: 0.5rem;
+    padding: 0.25rem;
   }
 
   .chart-stats {
@@ -562,7 +599,8 @@ body {
 
   .footer-text,
   .footer-assignment,
-  .footer-authors {
+  .footer-authors,
+  .footer-github {
     font-size: 0.8rem;
   }
 }
@@ -629,6 +667,11 @@ body {
     font-size: 0.75rem;
     line-height: 1.4;
   }
+
+  .footer-github {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.8rem;
+  }
 }
 
 /* landscape mobile orientation */
@@ -659,7 +702,6 @@ body {
   }
 
   .charts-grid {
-    grid-template-columns: 1fr;
     gap: 1rem;
   }
 

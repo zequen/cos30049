@@ -294,6 +294,6 @@ Categories include:
 ## Authors
 - Cody Le
 - John Hoang
-- Johnathon Taylor
+- Jonathon Taylor
 
-University Project - COS30049
+Assignment 3 - COS30049

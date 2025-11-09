@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import InputForm from "./components/InputForm";
 import Charts from "./components/Charts";
@@ -22,7 +21,7 @@ function MainApp() {
         <div className="app-container">
             <div className="app-header">
                 <h1 className="app-title">Misinformation Detector</h1>
-                <p className="app-subtitle">AI-powered text analysis for fake news detection</p>
+                <p className="app-subtitle">insert a really cool subtitle here</p>
             </div>
 
             {/* form component for text input and submission */}
@@ -65,8 +64,16 @@ function MainApp() {
                         Assignment 3 - COS30049
                     </p>
                     <p className="footer-authors">
-                        Cody Le • John Hoang • Johnathon Taylor
+                        Cody Le • John Hoang • Jonathon Taylor
                     </p>
+                    <a
+                        href="https://github.com/zequen/cos30049"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="footer-github"
+                    >
+                        View on GitHub
+                    </a>
                 </div>
             </footer>
         </div>
