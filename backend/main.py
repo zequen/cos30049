@@ -2,13 +2,13 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from model.predictor import predict_text
+from fastapi import FastAPI, HTTPException
 
 app = FastAPI()
 
-# Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # React default port
+    allow_origins=["http://localhost:3000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -16,7 +16,7 @@ app.add_middleware(
 
 class InputData(BaseModel):
     text: str
-    model: str = "random_forest" #change later to actually react to selected model
+    model: str = "random_forest" #default set to random forest
 
 @app.get("/")
 def root():
