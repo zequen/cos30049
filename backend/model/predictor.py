@@ -34,6 +34,16 @@ def extract_features(text):
     misinfo_keyword_count = sum(1 for w in misinfo_keywords if w in text)
     return np.array([[exclamation_count, question_count, misinfo_keyword_count]])
 
+def get_keyword_frequencies(text: str):
+    """extract keyword frequencies from text for visualization"""
+    clean = preprocess_text(text)
+    keyword_counts = {}
+    for keyword in misinfo_keywords:
+        count = clean.count(keyword)
+        if count > 0:
+            keyword_counts[keyword] = count
+    return keyword_counts
+
 def predict_text(input_text: str, model_name: str = "random_forest"):
     print("Received text:", input_text)
     print("Using model:", model_name)
@@ -52,4 +62,3 @@ def predict_text(input_text: str, model_name: str = "random_forest"):
     label = "Real" if pred == 1 else "Fake"
     print("Label:", label)
     return label
-
