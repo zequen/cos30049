@@ -8,6 +8,7 @@ export default function InputForm({ setResult, setHistory, setKeywordData }) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [validationError, setValidationError] = useState('');
+    const [model, setModel] = useState('random_forest');
 
     // input validation function
     const validateInput = () => {
@@ -45,7 +46,7 @@ export default function InputForm({ setResult, setHistory, setKeywordData }) {
         setResult(null);
 
         try {
-            const res = await axios.post("http://127.0.0.1:8000/predict", { text });
+            const res = await axios.post("http://127.0.0.1:8000/predict", { text, model });
             // update result state with prediction
             setResult(res.data.prediction);
             // add prediction to history for charts
@@ -71,6 +72,21 @@ export default function InputForm({ setResult, setHistory, setKeywordData }) {
     return (
         <div className="input-form-container">
             <form onSubmit={handleSubmit}>
+
+                <label htmlFor="model-select" className="input-label">
+                    select model
+                </label>
+                <select
+                    id="model-select"
+                    value={model}
+                    onChange={(e) => setModel(e.target.value)}
+                    className="input-select"
+                >
+                    <option value="random_forest">Random Forest</option>
+                    <option value="logistic_regression">Logistic Regression</option>
+                    <option value="naive_bayes">Naive Bayes</option>
+                </select>
+                
                 <label htmlFor="text-input" className="input-label">
                     enter text to analyse
                 </label>
