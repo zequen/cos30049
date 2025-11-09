@@ -45,3 +45,6 @@ Thumbs.db
 coverage/
 .coverage
 htmlcov/
+
+# ignore frontend readme (using root readme instead)
+/frontend/README.md
