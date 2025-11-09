@@ -13,7 +13,7 @@ import {
 // register chart.js components needed for rendering charts
 Chart.register(ArcElement, BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
-export default function Charts({ history, keywordData }) {
+export default function Charts({ history, keywordData, modelStats }) {
     // count how many "real" predictions occurred in history
     const realCount = history.filter((item) => item === "Real").length;
     // count how many "fake" predictions occurred in history
@@ -25,27 +25,71 @@ export default function Charts({ history, keywordData }) {
         datasets: [
             {
                 data: [realCount, fakeCount],
-                backgroundColor: ["#4ade80", "#f87171"], // green for real, red for fake
-                borderColor: ["#22c55e", "#ef4444"],
+                backgroundColor: ["#10b981", "#ef4444"],
+                borderColor: ["#059669", "#dc2626"],
                 borderWidth: 2,
             },
         ],
+    };
+
+    const pieOptions = {
+        plugins: {
+            legend: {
+                labels: {
+                    color: '#e5e7eb',
+                    font: { size: 14 }
+                }
+            }
+        }
     };
 
     // prepare data structure for keyword frequency bar chart
     const keywordLabels = Object.keys(keywordData);
     const keywordCounts = Object.values(keywordData);
 
-    const barData = {
+    const keywordBarData = {
         labels: keywordLabels,
         datasets: [
             {
                 label: "keyword frequency",
                 data: keywordCounts,
-                backgroundColor: "#6366f1",
-                borderColor: "#4f46e5",
+                backgroundColor: "#8b5cf6",
+                borderColor: "#7c3aed",
                 borderWidth: 1,
             },
+        ],
+    };
+
+    // prepare model statistics data
+    const modelNames = Object.keys(modelStats);
+    const modelTotals = modelNames.map(name => modelStats[name].total);
+    const modelReals = modelNames.map(name => modelStats[name].real);
+    const modelFakes = modelNames.map(name => modelStats[name].fake);
+
+    const modelStatsData = {
+        labels: modelNames.map(name => {
+            switch(name) {
+                case 'random_forest': return 'Random Forest';
+                case 'logistic_regression': return 'Logistic Regression';
+                case 'naive_bayes': return 'Naive Bayes';
+                default: return name;
+            }
+        }),
+        datasets: [
+            {
+                label: "Real",
+                data: modelReals,
+                backgroundColor: "#10b981",
+                borderColor: "#059669",
+                borderWidth: 1,
+            },
+            {
+                label: "Fake",
+                data: modelFakes,
+                backgroundColor: "#ef4444",
+                borderColor: "#dc2626",
+                borderWidth: 1,
+            }
         ],
     };
 
@@ -55,35 +99,77 @@ export default function Charts({ history, keywordData }) {
             legend: {
                 display: true,
                 position: "top",
+                labels: {
+                    color: '#e5e7eb',
+                    font: { size: 12 }
+                }
             },
             tooltip: {
                 enabled: true,
+                backgroundColor: '#1f2937',
+                titleColor: '#f3f4f6',
+                bodyColor: '#e5e7eb',
+                borderColor: '#374151',
+                borderWidth: 1
             },
         },
         scales: {
+            x: {
+                ticks: {
+                    color: '#9ca3af',
+                    font: { size: 11 }
+                },
+                grid: {
+                    color: '#374151'
+                }
+            },
             y: {
                 beginAtZero: true,
                 ticks: {
                     stepSize: 1,
+                    color: '#9ca3af'
                 },
+                grid: {
+                    color: '#374151'
+                }
             },
         },
     };
 
     return (
-        <div style={{ marginTop: "2rem" }}>
-            <div style={{ display: "flex", gap: "2rem", justifyContent: "center", flexWrap: "wrap" }}>
+        <div className="charts-container">
+            <div className="charts-grid">
                 {/* pie chart showing distribution of predictions */}
-                <div style={{ maxWidth: "400px", flex: "1" }}>
-                    <h3 style={{ textAlign: "center", marginBottom: "1rem" }}>prediction history</h3>
-                    <Pie data={pieData} />
+                <div className="chart-card">
+                    <h3 className="chart-title">📊 Prediction Distribution</h3>
+                    <div className="chart-wrapper">
+                        <Pie data={pieData} options={pieOptions} />
+                    </div>
+                    <div className="chart-stats">
+                        <div className="stat-item">
+                            <span className="stat-label">Total:</span>
+                            <span className="stat-value">{realCount + fakeCount}</span>
+                        </div>
+                    </div>
                 </div>
+
+                {/* model statistics bar chart */}
+                {modelTotals.some(total => total > 0) && (
+                    <div className="chart-card chart-card-wide">
+                        <h3 className="chart-title">🤖 Model Performance Statistics</h3>
+                        <div className="chart-wrapper">
+                            <Bar data={modelStatsData} options={barOptions} />
+                        </div>
+                    </div>
+                )}
 
                 {/* bar chart showing keyword frequencies */}
                 {keywordLabels.length > 0 && (
-                    <div style={{ maxWidth: "600px", flex: "1" }}>
-                        <h3 style={{ textAlign: "center", marginBottom: "1rem" }}>misinformation keywords detected</h3>
-                        <Bar data={barData} options={barOptions} />
+                    <div className="chart-card chart-card-wide">
+                        <h3 className="chart-title">🔍 Misinformation Keywords Detected</h3>
+                        <div className="chart-wrapper">
+                            <Bar data={keywordBarData} options={barOptions} />
+                        </div>
                     </div>
                 )}
             </div>
