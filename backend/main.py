@@ -1,38 +1,35 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from model.predictor import predict_text
+from model.predictor import predict_text, get_keyword_frequencies
 
+# create fastapi application instance
 app = FastAPI()
 
-# Add CORS middleware
+# add cors middleware to allow frontend requests from localhost:3000
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # React default port
+    allow_origins=["http://localhost:3000"],  # react default port
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["*"],  # allow all http methods
+    allow_headers=["*"],  # allow all headers
 )
 
+# define input data model for prediction endpoint
 class InputData(BaseModel):
     text: str
-    model: str = "random_forest" #change later to actually react to selected model
 
+# root endpoint to check if api is running
 @app.get("/")
 def root():
     return {"message": "API is running"}
 
+# prediction endpoint that accepts text and returns classification result with keyword data
 @app.post("/predict")
 def predict(data: InputData):
-    try:
-        if not data.text.strip():
-            raise HTTPException(status_code=400, detail="Input text cannot be empty.")
-        
-        result = predict_text(data.text, model_name=data.model)
-        return {"prediction": result}
-    except FileNotFoundError as e:
-        raise HTTPException(status_code=500, detail=f"Model or vectorizer file missing: {e}")
-    except ValueError as e:
-        raise HTTPException(status_code=400, detail=f"Invalid input: {e}")
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Unexpected error: {str(e)}")
+    prediction = predict_text(data.text)
+    keywords = get_keyword_frequencies(data.text)
+    return {
+        "prediction": prediction,
+        "keywords": keywords
+    }
