@@ -55,6 +55,22 @@ ProjectMisinfo/
 - **Python 3.12** or higher
 - **Node.js 18** or higher
 - **npm** or **yarn**
+- **Git LFS** (required for model + dataset files)
+
+---
+
+### Pull LFS Files (Important️)
+If this is your first time cloning the repo, ensure Git LFS is installed and pull the large files:
+
+```bash
+# Install Git LFS if not already installed
+git lfs install
+
+# Pull model and dataset files tracked by LFS
+git lfs pull
+```
+
+This step is required to download `.pkl` model files and dataset `.csv` files used by the backend.
 
 ---
 
@@ -86,23 +102,27 @@ pip install -r requirements.txt
 
 ---
 
-### 🧩 Alternative macOS Installation (using Homebrew)
+### Alternative macOS Installation (using Homebrew)
 If you prefer to use **Homebrew** for dependency setup on macOS:
 
 ```bash
 # Install Python and Node.js
-brew install python node
+brew install python node git-lfs
 
 # Verify installations
 python3 --version
 node -v
 npm -v
 
+# Pull large files via Git LFS
+git lfs install
+git lfs pull
+
 # Create and activate virtual environment
 python3 -m venv venv
 source venv/bin/activate
 
-# Install dependencies and run the app
+# Install dependencies and run the backend
 pip install -r requirements.txt
 uvicorn main:app --reload
 ```
@@ -256,7 +276,7 @@ Categories include:
 ### Backend won’t start
 - Ensure venv is activated
 - Check Python version (`python --version`)
-- Verify `.pkl` files exist
+- Verify `.pkl` files exist or pull via `git lfs pull`
 - Make sure port `8000` is available
 
 ### Frontend connection error
@@ -268,10 +288,12 @@ Categories include:
 - Ensure Chart.js + react-chartjs-2 are installed
 - Check console for JS errors
 - Ensure prediction history has data
+
 ---
 
 ## Authors
 - Cody Le
 - John Hoang
 - Johnathon Taylor
-Assignment 3 - COS30049
+
+University Project - COS30049
